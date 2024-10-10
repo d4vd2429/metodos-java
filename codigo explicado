@@ -1,1 +1,97 @@
-C:\Users\dq329\OneDrive - Universidad de San Buenaventura - Bogota\Documentos\java
+He implementado un programa de mvc(modelo-vista-controlador) para explicar nuestro tema de controller
+para realizar una operación de multiplicación de dos número ingresados por el usuario. A continuación la explicación de cada parte:
+ Clase Modelo (en el paquete modelo)
+La clase Modelo es la que maneja la lógica del negocio, es decir, el proceso de multiplicar dos números.
+public class Modelo {
+    private int numeroUno;
+    private int numeroDos;
+    private int resultado;
+Atributos:
+numeroUno: El primer número a multiplicar.
+numeroDos: El segundo número a multiplicar.
+resultado: El resultado de la multiplicación.
+public int getNumeroUno() { return numeroUno; }
+public void setNumeroUno(int numeroUno) { this.numeroUno = numeroUno; }
+
+public int getNumeroDos() { return numeroDos; }
+public void setNumeroDos(int numeroDos) { this.numeroDos = numeroDos; }
+
+public int getResultado() { return resultado; }
+public void setResultado(int resultado) { this.resultado = resultado; }
+Métodos de acceso (getters y setters):
+Permiten obtener y establecer los valores de los atributos.
+public int multiplicar(){
+    this.resultado = this.numeroUno * this.numeroDos;
+    return this.resultado;
+}
+Método multiplicar():
+Realiza la multiplicación de numeroUno y numeroDos, y almacena el resultado en el atributo resultado.
+
+
+2. Clase Controlador (en el paquete controlador)
+La clase Controlador es la que maneja la interacción entre la Vista y el Modelo.
+
+public class Controlador implements ActionListener {
+    private Vista view;
+    private Modelo model;
+Atributos:
+view: Instancia de la clase Vista, que representa la interfaz gráfica.
+model: Instancia de la clase Modelo, que contiene la lógica de la multiplicación.
+public Controlador(Vista view, Modelo model) {
+    this.view = view;
+    this.model = model;
+    this.view.btnMultiplicar.addActionListener((ActionListener) this);
+}
+Constructor:
+Se inicializa el controlador con una instancia de la Vista y el Modelo.
+Se agrega un ActionListener al botón "Multiplicar" (btnMultiplicar) para detectar cuando el usuario presiona este botón.
+public void iniciar() {
+    view.setTitle("controller multiplicar");
+    view.setLocationRelativeTo(null);
+}
+Método iniciar():
+Establece el título de la ventana de la vista y la posiciona en el centro de la pantalla.
+public void actionPerformed(ActionEvent e) {
+    model.setNumeroUno(Integer.parseInt(view.txtNumeroUno.getText()));
+    model.setNumeroDos(Integer.parseInt(view.txtNumeroDos.getText()));
+    model.multiplicar();
+    view.txtResultado.setText(String.valueOf(model.getResultado()));
+}
+public void actionPerformed(ActionEvent e) {
+    model.setNumeroUno(Integer.parseInt(view.txtNumeroUno.getText()));
+    model.setNumeroDos(Integer.parseInt(view.txtNumeroDos.getText()));
+    model.multiplicar();
+    view.txtResultado.setText(String.valueOf(model.getResultado()));
+}
+Método actionPerformed():
+Se ejecuta cuando se detecta que el usuario presiona el botón de multiplicar.
+Extrae los valores de los campos de texto txtNumeroUno y txtNumeroDos, los convierte a enteros y los establece en el modelo.
+Llama al método multiplicar() del modelo para realizar la operación.
+Muestra el resultado en el campo de texto txtResultado de la vista.
+
+
+3.Vista (en el paquete vista)
+Aunque la clase Vista no está en el fragmento de código que proporcionaste, basándonos en el contexto, parece ser una clase que contiene la interfaz gráfica (formularios, botones, etc.) con tres campos de texto y un botón:
+
+txtNumeroUno: Donde el usuario ingresa el primer número.
+txtNumeroDos: Donde el usuario ingresa el segundo número.
+txtResultado: Donde se muestra el resultado de la multiplicación.
+btnMultiplicar: Botón que ejecuta la operación de multiplicación cuando es presionado.
+
+
+Flujo del programa:
+1.El usuario introduce dos números en los campos de texto.
+2.Al presionar el botón "Multiplicar", el controlador toma los valores de la vista y los envía al modelo.
+3.El modelo realiza la multiplicación.
+4.El resultado se muestra en la vista.
+Este es un ejemplo típico de la arquitectura MVC, donde se separan las responsabilidades:
+
+Modelo: Lógica del negocio.
+Vista: Interfaz gráfica.
+Controlador: Maneja la interacción entre la vista y el modelo.
+
+
+
+
+
+
